@@ -272,10 +272,10 @@ pzmap(T5);
 legend('T1','T2','T3','T4','T5')
 
 %% Procedimiento B
-clc, clear, close all
+ clc, clear, close all
 % % Polos Adicionales
-s = tf('s');
-Gp = 4/(s^2+2*s+4); %Lazo Abierto
+ s = tf('s');
+ Gp = 4/(s^2+2*s+4); %Lazo Abierto
 % % Calculo de función en lazo cerrado
 Gplc = feedback(Gp,1,-1);    % Retroalimentación unitaria.
 
@@ -290,26 +290,25 @@ title('Sistema en lazo cerrado.')
 
 % % Lazo Abierto con ceros adicionales.
  k = [0 0.5 1 3 15 -3 -15];
- figure
  for i=1:length(k)
      Gpca =  (4*(s+k(i)))/(k(i)*(s^2+2*s+4));
      step(Gpca);
      hold on
-     legend('k=0','k=0.5','k=1','k=3','k=15','k=-3','k=-15')
  end
- title('Sistema lazo abierto con ceros adicionales')
-hold off
-% Lazo cerrado con ceros adicionales
-figure
+ title('Sistema lazo abierto')
+ figure,step(Gp)
+
+% Lazo cerrado
+step(Gplc)
+hold on
 for i=1:length(k)
      Gldz =  (4*(s+k(i)))/(k(i)*(s^2+2*s+4));
      step(feedback(Gldz,1,-1),10);
      hold on
-     legend('k=0','k=0.5','k=1','k=3','k=15','k=-3','k=-15')
  end
- title('Sistema lazo cerrado con ceros adicionales')
+ title('Ceros adicionales en lazo cerrado')
  hold off
-%  
+ 
  % Sea la funcion de transferencia en lazo abierto. 
  clc, clear
 % % Polos Adicionales
@@ -332,17 +331,13 @@ title('Sistema en lazo cerrado.')
      Gpca =  (4.4*((s+1)*k(i))/((s+k(i))*(s^2+2*s+4)));
      step(Gpca);
      hold on
-     legend('k=0','k=1.1','k=1','k=3','k=15','k=25')
  end
 title('Sistema lazo abierto con ceros adicionales')
-hold off
 
-figure
+
 for i=1:length(k)
      Gldz =  (4.4*((s+1)*k(i)))/((s+k(i))*(s^2+2*s+4));
      step(feedback(Gldz,1,-1),10);
      hold on
-     legend('k=0','k=1.1','k=1','k=3','k=15','k=25')
  end
  title('Polos adicionales en lazo cerrado')
- hold off
